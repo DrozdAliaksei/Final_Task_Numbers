@@ -15,7 +15,6 @@ import com.example.contacts.settings.SettingsActivity
 class MainActivity : AppCompatActivity() {
     private val dao = ContactDao()
     private lateinit var recyclerView: RecyclerView
-    private var listContacts = mutableListOf<Contact>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +58,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class ContactRecyclerViewAdapter(
-        private var listItems: MutableList<Contact>
+        private var listItems: List<Contact>
     ) :
         RecyclerView.Adapter<ContactViewHolder>() {
 
-        //        private var listItems = dao.queryForAll()
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.contact, parent, false)
             return ContactViewHolder(view)
@@ -83,14 +81,14 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-
-        listContacts = when (preferences.getString(getString(R.string.sort_option), "")) {
-            "Name" -> dao.queryForAll().sortedBy { it.name } as MutableList<Contact>
-            "Number" -> dao.queryForAll().sortedBy { it.number } as MutableList<Contact>
-            else -> dao.queryForAll()
+        val listContacts: List<Contact> = dao.queryForAll()
+        when (preferences.getString(getString(R.string.sort_option), "")) {
+            "Name" -> recyclerView.adapter =
+                ContactRecyclerViewAdapter(listContacts.sortedBy { it.name })
+            "Number" -> recyclerView.adapter =
+                ContactRecyclerViewAdapter(listContacts.sortedBy { it.number })
+            else -> recyclerView.adapter = ContactRecyclerViewAdapter(listContacts)
         }
-
-        recyclerView.adapter = ContactRecyclerViewAdapter(listContacts)
 
         super.onResume()
     }
