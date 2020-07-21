@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 
 class CatViewModel : ViewModel() {
 
-    private val _items = MutableLiveData<List<Cat>>()
-    val items: LiveData<List<Cat>> get() = _items
-    var page: Int = 10
+    private val _items = MutableLiveData<MutableList<Cat>>()
+    val items: LiveData<MutableList<Cat>> get() = _items
+    private var page: Int = 10
 
     init {
         getPageOfCats()
@@ -21,7 +21,7 @@ class CatViewModel : ViewModel() {
 
     fun getPageOfCats() {
         viewModelScope.launch {
-            _items.value = CatDataSource.getPageOfCats(page)
+            _items.value?.addAll(CatDataSource.getPageOfCats(page))
             page++
             Log.e("CatModel", "cats responce rith page: $page")
         }

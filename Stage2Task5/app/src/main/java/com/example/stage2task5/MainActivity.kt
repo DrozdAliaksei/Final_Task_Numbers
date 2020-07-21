@@ -31,27 +31,18 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-               
+                if (!recyclerView.canScrollVertically(1)) {
+                    catViewModel.getPageOfCats()
+                    Log.e(TAG,"in on scroll listner")
+                }
             }
         })
 
-        recyclerView.onScrollToEnd { catViewModel.getPageOfCats() }
-
         catViewModel.items.observe(this, Observer {
             it ?: return@Observer
-            itemAdapter.setData(it)
+            itemAdapter.submitList(it)
             Log.e(TAG,"first load Cats method")
         })
     }
 
-    private fun RecyclerView.onScrollToEnd(
-        onScrollNearEnd: (Unit) -> Unit
-    ) = addOnScrollListener(object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            if (!recyclerView.canScrollVertically(1)) {
-                onScrollNearEnd(Unit)
-                Log.e(TAG,"in on scroll listner")
-            }
-        }
-    })
 }
