@@ -5,12 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.MainThread
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import com.example.stage2task5.MainActivity
 import com.example.stage2task5.R
-import com.example.stage2task5.data.Cat
+import com.example.stage2task5.data.datasource.api.local.model.Cat
 
 class CatAdapter : RecyclerView.Adapter<CatViewHolder>() {
 

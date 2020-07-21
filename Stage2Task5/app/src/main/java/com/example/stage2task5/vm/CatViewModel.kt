@@ -1,11 +1,12 @@
-package com.example.stage2task5
+package com.example.stage2task5.vm
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.stage2task5.data.Cat
+import com.example.stage2task5.data.datasource.api.CatDataSource
+import com.example.stage2task5.data.datasource.api.local.model.Cat
 import kotlinx.coroutines.launch
 
 class CatViewModel : ViewModel() {
@@ -16,7 +17,7 @@ class CatViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _items.value = CatApiImpl.getPageOfCats(page)
+            _items.value = CatDataSource.getPageOfCats(page)
             Log.e("CatModel", "cats page: $page")
         }
     }
@@ -24,7 +25,7 @@ class CatViewModel : ViewModel() {
     fun getPageOfCats() {
         viewModelScope.launch {
             page++
-            _items.value = CatApiImpl.getPageOfCats(page)
+            _items.value = CatDataSource.getPageOfCats(page)
 
             Log.e("CatModel", "cats responce rith page: $page")
         }

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stage2task5.adapter.CatAdapter
+import com.example.stage2task5.vm.CatViewModel
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -26,11 +27,6 @@ class MainActivity : AppCompatActivity() {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-            }
-        })
         recyclerView.onScrollToEnd { loadNextPageOfCats() }
 
         catViewModel.items.observe(this, Observer {
