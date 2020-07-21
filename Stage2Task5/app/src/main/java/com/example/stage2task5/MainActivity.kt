@@ -27,21 +27,20 @@ class MainActivity : AppCompatActivity() {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-        recyclerView.onScrollToEnd { loadNextPageOfCats() }
 
-        catViewModel.items.observe(this, Observer {
-            it ?: return@Observer
-            itemAdapter.addItems(it)
-            Log.e(TAG,"first load Cats method")
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+               
+            }
         })
-    }
 
-    private fun loadNextPageOfCats() {
-        catViewModel.getPageOfCats()
+        recyclerView.onScrollToEnd { catViewModel.getPageOfCats() }
+
         catViewModel.items.observe(this, Observer {
             it ?: return@Observer
-            itemAdapter.addItems(it)
-            Log.e(TAG,"loadCats method")
+            itemAdapter.setData(it)
+            Log.e(TAG,"first load Cats method")
         })
     }
 

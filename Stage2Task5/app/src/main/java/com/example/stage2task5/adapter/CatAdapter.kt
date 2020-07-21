@@ -1,10 +1,12 @@
 package com.example.stage2task5.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.stage2task5.R
@@ -14,7 +16,7 @@ class CatAdapter : RecyclerView.Adapter<CatViewHolder>() {
 
     private val TAG = "Adapter"
 
-    private val items = mutableListOf<Cat>()
+    private var items = mutableListOf<Cat>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
@@ -24,8 +26,9 @@ class CatAdapter : RecyclerView.Adapter<CatViewHolder>() {
         if (position != RecyclerView.NO_POSITION) {
             catViewHolder.imageView.setOnClickListener {
                 //TODO third part of task
-                Toast.makeText(parent.context, "open cat on flip full screen ", Toast.LENGTH_SHORT)
+                Toast.makeText(parent.context, "open cat on flip full screen: ${catViewHolder.adapterPosition} ", Toast.LENGTH_SHORT)
                     .show()
+                Log.e(TAG,"Where is my Toast ${catViewHolder.adapterPosition}")
             }
         }
         return CatViewHolder(view)
@@ -36,13 +39,24 @@ class CatAdapter : RecyclerView.Adapter<CatViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
-        val imageUrl = items[position].imageUrl ?: ""
+        val imageUrl = items[holder.adapterPosition].imageUrl ?: ""
         holder.bind(imageUrl)
     }
 
     fun addItems(newItems: List<Cat>) {
         items.addAll(newItems)
-        notifyDataSetChanged()
+//        items = newItems as MutableList<Cat>
+//        notifyDataSetChanged()
+        notifyItemRangeInserted(itemCount+1,10)
+    }
+
+    fun setData(newItems: List<Cat>) {
+        val diffCallback = CatDiffCallback(items,newItems)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        items.clear()
+        items.addAll(newItems)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
 

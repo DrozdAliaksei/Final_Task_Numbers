@@ -13,20 +13,16 @@ class CatViewModel : ViewModel() {
 
     private val _items = MutableLiveData<List<Cat>>()
     val items: LiveData<List<Cat>> get() = _items
-    var page: Int = 1
+    var page: Int = 10
 
     init {
-        viewModelScope.launch {
-            _items.value = CatDataSource.getPageOfCats(page)
-            Log.e("CatModel", "cats page: $page")
-        }
+        getPageOfCats()
     }
 
     fun getPageOfCats() {
         viewModelScope.launch {
-            page++
             _items.value = CatDataSource.getPageOfCats(page)
-
+            page++
             Log.e("CatModel", "cats responce rith page: $page")
         }
     }
