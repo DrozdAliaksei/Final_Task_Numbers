@@ -16,12 +16,18 @@ class CatViewModel : ViewModel() {
     private var page: Int = 10
 
     init {
-        getPageOfCats()
+        viewModelScope.launch {
+            _items.value = CatDataSource.getPageOfCats(page).toMutableList()
+            page++
+        }
     }
 
     fun getPageOfCats() {
         viewModelScope.launch {
-            _items.value?.addAll(CatDataSource.getPageOfCats(page))
+            val list = items.value
+//            _items.postValue(CatDataSource.getPageOfCats(page).toMutableList())
+            list?.addAll(CatDataSource.getPageOfCats(page))
+            _items.value = list
             page++
             Log.e("CatModel", "cats responce rith page: $page")
         }
