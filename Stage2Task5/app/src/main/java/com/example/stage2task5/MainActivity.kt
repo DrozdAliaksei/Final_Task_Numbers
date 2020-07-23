@@ -1,6 +1,5 @@
 package com.example.stage2task5
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -47,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         catViewModel.items.observe(this, Observer {
             it ?: return@Observer
             itemAdapter.submitList(it)
+            itemAdapter.notifyDataSetChanged()
             Log.e(TAG,"submit list to adapter")
         })
     }
