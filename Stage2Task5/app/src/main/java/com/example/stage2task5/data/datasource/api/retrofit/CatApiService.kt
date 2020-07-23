@@ -13,6 +13,7 @@ interface CatApiService {
         @Header("x-api-key") headerKey: String,
         @Query("limit") limit: Int,
         @Query("order") perPage: String,
+        @Query("size") size: String,
         @Query("page") page: Int
     ): Response<List<CatResponse>>
 }

@@ -1,7 +1,9 @@
 package com.example.stage2task5
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,8 +18,12 @@ class MainActivity : AppCompatActivity() {
     private val TAG ="MainAct"
 
     private val catViewModel by viewModels<CatViewModel>()
+    private val itemAdapter = CatAdapter{
+//        val intent = Intent(this,ImageActivity::class.java)
+//        startActivityForResult(intent)
+        Toast.makeText(this,"You click on the image ${it.id}",Toast.LENGTH_SHORT).show()
+    }
 
-    private val itemAdapter = CatAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     catViewModel.getPageOfCats()
-                    Log.e(TAG,"in on scroll listner")
+                    Log.e(TAG,"loading more")
                 }
             }
         })
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         catViewModel.items.observe(this, Observer {
             it ?: return@Observer
             itemAdapter.submitList(it)
-            Log.e(TAG,"first load Cats method")
+            Log.e(TAG,"submit list to adapter")
         })
     }
 

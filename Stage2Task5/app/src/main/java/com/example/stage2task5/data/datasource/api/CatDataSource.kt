@@ -13,7 +13,8 @@ object CatDataSource {
 
     private const val headerKey = "efd7f557-8c35-4689-b6b0-8de585e348b1"
     private const val limit = 10
-    private const val order = "Desc"
+    private const val order = "Asc"
+    private const val size = "full"
 
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
@@ -29,6 +30,7 @@ object CatDataSource {
             headerKey,
             limit,
             order,
+            size,
             page
         )
         return if (response.isSuccessful) withContext(Dispatchers.IO) {
