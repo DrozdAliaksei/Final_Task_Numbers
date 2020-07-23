@@ -18,32 +18,36 @@ class CatAdapter(val onImageClickListner: (cat: Cat) -> Unit) :
     private val TAG = "Adapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
+        Log.e(TAG, "onCreateViewHolder")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_item, parent, false)
+        val catViewHolder = CatViewHolder(view)
+        catViewHolder.imageView.setOnClickListener {
+            onImageClickListner(getItem(catViewHolder.adapterPosition))
+            Log.e(TAG, "Where is my Toast ${catViewHolder.adapterPosition}")
+        }
 
-        return CatViewHolder(view, this)
+        return catViewHolder
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
-        val item = getItem(holder.adapterPosition).imageUrl ?: ""
+        Log.e(TAG, "onBindViewHolder")
+        val item = getItem(position)
         holder.bind(item)
     }
 }
 
-class CatViewHolder(view: View, private val adapter: CatAdapter) :
+class CatViewHolder(view: View) :
     RecyclerView.ViewHolder(view) {
+    val imageView: ImageView = view.findViewById(R.id.imageView)
 
-    private val imageView: ImageView = view.findViewById(R.id.imageView)
-
-    fun bind(imageUrl: String) {
+    fun bind(cat: Cat) {
+        Log.e("Adapter", " method bind in viewHolder")
+        val imageUrl = cat.imageUrl
         imageView.load(imageUrl) {
             crossfade(true)
             transformations(
                 CircleCropTransformation()
             )
-        }
-        imageView.setOnClickListener {
-            adapter.onImageClickListner(adapter.currentList[this.adapterPosition])
-            Log.e("Adapter", "onImageClick   ")
         }
     }
 }

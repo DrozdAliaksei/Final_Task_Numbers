@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 //        val intent = Intent(this,ImageActivity::class.java)
 //        startActivityForResult(intent)
         Toast.makeText(this,"You click on the image ${it.id}",Toast.LENGTH_SHORT).show()
+        Log.e(TAG,"click was here ${it.id}")
     }
 
 
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         catViewModel.items.observe(this, Observer {
             it ?: return@Observer
             itemAdapter.submitList(it)
-            itemAdapter.notifyDataSetChanged()
+//            itemAdapter.notifyDataSetChanged()
             Log.e(TAG,"submit list to adapter")
         })
     }
