@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Stage2Task5</string>
     <string name="image_description">Cat Image</string>
+    <string name="main_fragment_label">Main Fragment</string>
+    <string name="image_fragment_label">Image Fragment</string>
 </resources>
