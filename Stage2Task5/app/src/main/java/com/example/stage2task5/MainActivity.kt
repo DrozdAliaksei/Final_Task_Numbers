@@ -14,16 +14,15 @@ import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity() {
 
-    private val TAG ="MainAct"
+    private val TAG = "MainAct"
 
     private val catViewModel by viewModels<CatViewModel>()
-    private val itemAdapter = CatAdapter{
+    private val itemAdapter = CatAdapter {
 //        val intent = Intent(this,ImageActivity::class.java)
 //        startActivityForResult(intent)
-        Toast.makeText(this,"You click on the image ${it.id}",Toast.LENGTH_SHORT).show()
-        Log.e(TAG,"click was here ${it.id}")
+        Toast.makeText(this, "You click on the image ${it.id}", Toast.LENGTH_SHORT).show()
+        Log.e(TAG, "click was here ${it.id}")
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +32,12 @@ class MainActivity : AppCompatActivity() {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1)){
                     catViewModel.getPageOfCats()
-                    Log.e(TAG,"loading more")
+                    Log.e(TAG, "loading more")
                 }
             }
         })
@@ -47,9 +45,8 @@ class MainActivity : AppCompatActivity() {
         catViewModel.items.observe(this, Observer {
             it ?: return@Observer
             itemAdapter.submitList(it)
-//            itemAdapter.notifyDataSetChanged()
-            Log.e(TAG,"submit list to adapter")
+            itemAdapter.notifyDataSetChanged()  //need to fix bug
+            Log.e(TAG, "submit list to adapter")
         })
     }
-
 }

@@ -31,7 +31,8 @@ class CatAdapter(val onImageClickListner: (cat: Cat) -> Unit) :
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
         Log.e(TAG, "onBindViewHolder")
-        val item = getItem(position)
+//        val item = getItem(position)
+        val item = getItem(holder.adapterPosition)
         holder.bind(item)
     }
 }

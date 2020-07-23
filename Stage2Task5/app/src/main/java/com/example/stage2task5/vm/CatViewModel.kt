@@ -28,6 +28,7 @@ class CatViewModel : ViewModel() {
 //            _items.postValue(CatDataSource.getPageOfCats(page).toMutableList())
             list?.addAll(CatDataSource.getPageOfCats(page))
             _items.value = list
+            Log.e("CatModel", "list size: ${list?.size}")
             Log.e("CatModel", "cats responce rith page: $page")
         }
     }
