@@ -7,6 +7,5 @@ class CatImageViewModel : ViewModel() {
     private lateinit var cat: Cat
 
     fun saveCat() {
-
     }
 }

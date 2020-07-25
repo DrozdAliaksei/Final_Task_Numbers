@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +27,8 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -45,7 +45,7 @@ class MainFragment : Fragment() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)){
+                if (!recyclerView.canScrollVertically(1)) {
                     catViewModel.getPageOfCats()
                     Log.e(TAG, "loading more")
                 }
@@ -55,7 +55,7 @@ class MainFragment : Fragment() {
         catViewModel.items.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
             itemAdapter.submitList(it)
-            itemAdapter.notifyDataSetChanged()  //need to fix bug
+            itemAdapter.notifyDataSetChanged() // need to fix bug
             Log.e(TAG, "submit list to adapter")
         })
     }

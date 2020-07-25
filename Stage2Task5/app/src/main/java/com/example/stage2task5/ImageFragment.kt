@@ -2,6 +2,7 @@ package com.example.stage2task5
 
 import android.content.ContentValues
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import coil.api.load
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import java.io.IOException
 
 class ImageFragment : Fragment() {
     private val TAG = "ImageFragment"
@@ -21,7 +23,8 @@ class ImageFragment : Fragment() {
 //    private val catImageViewModel by viewModels<CatImageViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.image_activity, container, false)
@@ -40,30 +43,47 @@ class ImageFragment : Fragment() {
         id.let { }
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            saveImageToGallery(imageView)
-            Snackbar.make(view, "This image has been saved to the gallery", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            if (saveImageToGallery(imageView)) {
+                Snackbar.make(
+                    view,
+                    "This image has been saved to the gallery",
+                    Snackbar.LENGTH_LONG
+                )
+                    .setAction("Action", null).show()
+            } else {
+                Snackbar.make(
+                    view,
+                    "Something went wrong while saving",
+                    Snackbar.LENGTH_LONG
+                )
+                    .setAction("Action", null).show()
+            }
         }
     }
 
     private fun saveImageToGallery(imageView: ImageView): Boolean {
+        val contentUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+        } else {
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        }
+
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Images.Media.TITLE, "Cat")
+            put(MediaStore.Images.Media.DISPLAY_NAME, "Cat")
+        }
+
         return try {
-            val contentValues = ContentValues().apply {
-                put(MediaStore.Images.Media.TITLE, "Cat")
-                put(MediaStore.Images.Media.DISPLAY_NAME, "Cat")
-            }
             val contentResolver = requireActivity().contentResolver
-            val drawable = imageView.drawable.toBitmap()
-            val url =
-                contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-            if (url != null) {
-//                val outputStream = contentResolver.openOutputStream(url)
-                contentResolver.openOutputStream(url).use {
-                    drawable.compress(Bitmap.CompressFormat.JPEG, 85, it)
-                }
+            val uri = contentResolver.insert(contentUri, contentValues)
+                ?: throw IOException("Failed to create new MediaStore record.")
+
+            contentResolver.openOutputStream(uri).use {
+                imageView.drawable.toBitmap().compress(Bitmap.CompressFormat.PNG, 85, it)
             }
             true
         } catch (exp: Exception) {
+            Log.e(TAG, "Something went wrong while saving: $exp")
             false
         }
     }

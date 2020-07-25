@@ -6,12 +6,11 @@ import android.os.Parcelable
 data class Cat(
     val id: String?,
     val imageUrl: String?
-):Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
