@@ -1,6 +1,5 @@
 package com.example.stage2task5.vm
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,11 +24,8 @@ class CatViewModel : ViewModel() {
         viewModelScope.launch {
             page++
             val list = items.value
-//            _items.postValue(CatDataSource.getPageOfCats(page).toMutableList())
             list?.addAll(CatDataSource.getPageOfCats(page))
             _items.value = list
-            Log.e("CatModel", "list size: ${list?.size}")
-            Log.e("CatModel", "cats responce rith page: $page")
         }
     }
 }

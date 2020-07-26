@@ -1,7 +1,6 @@
 package com.example.stage2task5
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +16,10 @@ import com.example.stage2task5.vm.CatViewModel
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainFragment : Fragment() {
-    private val TAG = "MainAct"
 
     private val catViewModel by viewModels<CatViewModel>()
     private val itemAdapter = CatAdapter {
-        findNavController().navigate(R.id.action_Open_Cat_Image, bundleOf("Cat" to it.imageUrl))
-//        Toast.makeText(parentFragment?.context, "You click on the image ${it.id}", Toast.LENGTH_SHORT).show()
-        Log.e(TAG, "click was here ${it.id}")
+        findNavController().navigate(R.id.action_Open_Cat_Image, bundleOf("Cat" to it))
     }
 
     override fun onCreateView(
@@ -31,7 +27,6 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_main, container, false)
     }
 
@@ -47,7 +42,6 @@ class MainFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     catViewModel.getPageOfCats()
-                    Log.e(TAG, "loading more")
                 }
             }
         })
@@ -56,7 +50,6 @@ class MainFragment : Fragment() {
             it ?: return@Observer
             itemAdapter.submitList(it)
             itemAdapter.notifyDataSetChanged() // need to fix bug
-            Log.e(TAG, "submit list to adapter")
         })
     }
 }
