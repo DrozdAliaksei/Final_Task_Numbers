@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Stage2Task6</string>
+    <string name="list_label">List of Films</string>
+    <string name="film_label">Film</string>
+</resources>
