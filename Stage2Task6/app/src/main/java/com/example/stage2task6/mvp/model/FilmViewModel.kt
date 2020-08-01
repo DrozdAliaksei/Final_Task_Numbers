@@ -10,17 +10,19 @@ import com.example.stage2task6.mvp.interfaces.ResultListener
 import kotlinx.coroutines.launch
 
 class FilmViewModel : ViewModel() {
-    private val _items = MutableLiveData<List<Film>>()
-    val items: LiveData<List<Film>> get() = _items
+//    private val _items = MutableLiveData<List<Film>>()
+//    val items: LiveData<List<Film>> get() = _items
+    private var items = listOf<Film>()
 
     init {
         viewModelScope.launch {
-            _items.value = DataSource.getFilmsFromXml()
+//            _items.value = DataSource.getFilmsFromXml()
 //            _items.value = DataSource.getFilmsFromJson()
+            items = DataSource.getFilmsFromXml()
         }
     }
 
     fun getData(onResultListener: ResultListener) {
-        onResultListener.onResultSuccess(items.value!!)
+        onResultListener.onResultSuccess(items)
     }
 }
