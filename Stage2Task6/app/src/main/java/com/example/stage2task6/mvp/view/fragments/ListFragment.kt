@@ -48,8 +48,9 @@ class ListFragment : Fragment() {
     }
 
     override fun onResume() {
-        listPresenter.getData()
         super.onResume()
+        listPresenter.getData()
+
     }
 
     override fun onDestroyView() {
