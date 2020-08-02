@@ -6,16 +6,17 @@ import com.example.stage2task6.mvp.interfaces.ResultListener
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class FilmViewModel {
-    private var items = listOf<Film>()
+class FilmModel {
+    private lateinit var items: List<Film>
 
-    init {
+    fun getData(onResultListener: ResultListener) {
         GlobalScope.launch {
             items = DataSource.getFilmsFromXml()
         }
-    }
-
-    fun getData(onResultListener: ResultListener) {
-        onResultListener.onResultSuccess(items)
+        if (items.isEmpty()) {
+            onResultListener.onResultFail("Something happen during downloading list")
+        } else {
+            onResultListener.onResultSuccess(items)
+        }
     }
 }

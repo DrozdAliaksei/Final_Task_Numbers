@@ -2,12 +2,12 @@ package com.example.stage2task6.mvp.presenters
 
 import com.example.stage2task6.data.local.model.Film
 import com.example.stage2task6.mvp.interfaces.ResultListener
-import com.example.stage2task6.mvp.model.FilmViewModel
+import com.example.stage2task6.mvp.model.FilmModel
 import com.example.stage2task6.mvp.view.fragments.ListFragment
 
 class ListPresenter(
     private var listView: ListFragment.ListViewImpl?,
-    private var filmModel: FilmViewModel?
+    private var filmModel: FilmModel?
 ): ResultListener {
     fun getData() {
         filmModel?.getData(this)

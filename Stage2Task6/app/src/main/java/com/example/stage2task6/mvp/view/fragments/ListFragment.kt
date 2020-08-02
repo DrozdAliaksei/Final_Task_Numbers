@@ -11,7 +11,7 @@ import com.example.stage2task6.R
 import com.example.stage2task6.adapter.FilmAdapter
 import com.example.stage2task6.data.local.model.Film
 import com.example.stage2task6.mvp.interfaces.ListView
-import com.example.stage2task6.mvp.model.FilmViewModel
+import com.example.stage2task6.mvp.model.FilmModel
 import com.example.stage2task6.mvp.presenters.ListPresenter
 import kotlinx.android.synthetic.main.list_of_films_fragment.recyclerView
 
@@ -24,7 +24,7 @@ class ListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        listPresenter = ListPresenter(ListViewImpl(), FilmViewModel())
+        listPresenter = ListPresenter(ListViewImpl(), FilmModel())
         return inflater.inflate(R.layout.list_of_films_fragment, container, false)
     }
 
