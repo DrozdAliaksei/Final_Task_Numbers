@@ -1,6 +1,5 @@
 package com.example.stage2task6.mvp.presenters
 
-import com.example.stage2task6.data.local.model.Film
 import com.example.stage2task6.mvp.model.FilmModel
 import com.example.stage2task6.mvp.view.fragments.ListFragment
 import kotlinx.coroutines.Dispatchers
@@ -13,22 +12,10 @@ class ListPresenter(
 ) {
     fun getData() {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = filmModel?.getData()
-            if (response != null) {
-                if (response.isSuccessful) {
-                    listView?.setData(
-                        response.body()
-                            ?.channel
-                            ?.itemsList?.map { item ->
-                                Film(
-                                    item.title,
-                                    item.image?.url,
-                                    item.duration,
-                                    item.media?.content?.map { it.mediaUrl },
-                                    item.description
-                                )
-                            }!!
-                    )
+            val result = filmModel?.getData()
+            if (result != null) {
+                if (result.isSuccess()) {
+                    listView?.setData(result.data())
                 } else {
                     listView?.setDataError("Something happen during downloading data")
                 }

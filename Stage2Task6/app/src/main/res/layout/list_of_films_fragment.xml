@@ -11,10 +11,26 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/source_selector_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="3"
         tools:listitem="@layout/film_info_item" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/source_selector_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/itemBackground"
+        android:paddingBottom="15dp"
+        app:itemBackground="@color/itemBackground"
+        app:itemIconTint="@color/source_menu_item_background_colors"
+        app:itemTextColor="@color/source_menu_item_background_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView"
+        app:menu="@menu/source_selector" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

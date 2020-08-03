@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/xml_source"
+        android:title="@string/rss_source"
+        android:checked="true"
+        />
+    <item
+        android:id="@+id/json_source"
+        android:title="@string/repository_source"/>
+</menu>
