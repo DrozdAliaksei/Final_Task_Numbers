@@ -1,9 +1,13 @@
 package com.example.stage2task6.data
 
 import com.example.stage2task6.data.local.model.Film
+import com.example.stage2task6.data.model.FilmXmlResponse
 import com.example.stage2task6.data.retrofit.FilmApiService
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 
 object DataSource {
@@ -18,21 +22,8 @@ object DataSource {
         FilmApiService::class.java
     )
 
-    suspend fun getFilmsFromXml(): List<Film> {
-        val response = FilmService.getFilmsFromXml()
-        if (response.isSuccessful) {
-            return response.body()
-                ?.channel
-                ?.itemsList?.map { item ->
-                    Film(
-                        item.title,
-                        item.image?.url,
-                        item.duration,
-                        item.media?.content?.map { it.mediaUrl },
-                        item.description
-                    )
-                }!!
-        } else return listOf()
+    suspend fun getFilmsFromXml(): Deferred<Response<FilmXmlResponse>> {
+        return GlobalScope.async { FilmService.getFilmsFromXml() }
     }
 
     suspend fun getFilmsFromJson(): List<Film> {
