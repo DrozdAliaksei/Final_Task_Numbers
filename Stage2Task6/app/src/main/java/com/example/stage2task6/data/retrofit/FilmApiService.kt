@@ -11,5 +11,5 @@ interface FilmApiService {
     suspend fun getFilmsFromXml(): Response<FilmXmlResponse>
 
     @GET("artem-bagritsevich/rs.android.task.6/master/data/data.json")
-    suspend fun getFilmsFromJson():Response<FilmJsonResponse>
+    suspend fun getFilmsFromJson(): Response<FilmJsonResponse>
 }

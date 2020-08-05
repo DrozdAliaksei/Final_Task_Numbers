@@ -10,9 +10,9 @@ class ListPresenter(
     private var listView: ListFragment.ListViewImpl?,
     private var filmModel: FilmModel?
 ) {
-    fun getData() {
+    fun getData(source: String) {
         GlobalScope.launch(Dispatchers.Main) {
-            val result = filmModel?.getData()
+            val result = filmModel?.getData(source)
             if (result != null) {
                 if (result.isSuccess()) {
                     listView?.setData(result.data())

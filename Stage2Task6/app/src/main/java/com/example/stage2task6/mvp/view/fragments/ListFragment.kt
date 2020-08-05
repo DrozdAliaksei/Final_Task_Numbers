@@ -1,6 +1,7 @@
 package com.example.stage2task6.mvp.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,13 @@ import com.example.stage2task6.mvp.interfaces.ListView
 import com.example.stage2task6.mvp.model.FilmModel
 import com.example.stage2task6.mvp.presenters.ListPresenter
 import kotlinx.android.synthetic.main.list_of_films_fragment.recyclerView
+import kotlinx.android.synthetic.main.list_of_films_fragment.source_selector_menu
 
 class ListFragment : Fragment() {
 
     private val filmAdapter = FilmAdapter()
     private lateinit var listPresenter: ListPresenter
+    private var source = RSS
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +37,25 @@ class ListFragment : Fragment() {
             adapter = filmAdapter
             layoutManager = LinearLayoutManager(context)
         }
+        listPresenter.getData(source)
+
+        source_selector_menu.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.xml_source -> {
+                    source = RSS
+                    listPresenter.getData(source)
+                    Log.i(TAG, "RSS source")
+                    true
+                }
+                R.id.json_source -> {
+                    source = REPO
+                    listPresenter.getData(source)
+                    Log.i(TAG, "Repo source")
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     inner class ListViewImpl : ListView {
@@ -47,14 +69,14 @@ class ListFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        listPresenter.getData()
-
-    }
-
     override fun onDestroyView() {
         listPresenter.onDestroy()
         super.onDestroyView()
+    }
+
+    companion object {
+        const val RSS = "Ted rss"
+        const val REPO = "Repository"
+        const val TAG: String = "ListFragment"
     }
 }

@@ -2,6 +2,6 @@
     <string name="app_name">Stage2Task6</string>
     <string name="list_label">List of Films</string>
     <string name="film_label">Film</string>
-    <string name="rss_source">Rss</string>
-    <string name="repository_source">Repo</string>
+    <string name="rss_source">Ted Rss</string>
+    <string name="repository_source">Repository</string>
 </resources>
