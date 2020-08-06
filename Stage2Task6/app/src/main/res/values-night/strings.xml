@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Stage2Task6</string>
     <string name="list_label">List of Films</string>
@@ -5,9 +6,10 @@
     <string name="rss_source">Ted Rss</string>
     <string name="repository_source">Repository</string>
     <string name="theme_settings_dialog_title">Theme</string>
-    <string name="theme_choice">choose_theme</string>
-    <string name="themes">Theme</string>
-    <string name="theme_setting_summary">Choose theme</string>
-    <string name="light_theme_settings">Light Theme</string>
-    <string name="dark_theme_settings">Dark Theme</string>
+
+    <string-array name="themes">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
 </resources>

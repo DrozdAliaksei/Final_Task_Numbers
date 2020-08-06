@@ -5,4 +5,5 @@ data class Film(
     val previewImageUrl: String?,
     val duration: String?,
     val mediaUrl: List<String>?,
-    val description: String?)
+    val description: String?
+)

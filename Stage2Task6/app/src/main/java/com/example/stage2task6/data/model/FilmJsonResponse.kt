@@ -41,4 +41,3 @@ data class Media(
 data class MediaData(
     @Json(name = "url") val mediaUrl: String
 )
-
