@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stage2task6.R
 import com.example.stage2task6.adapter.FilmAdapter
@@ -19,7 +21,9 @@ import kotlinx.android.synthetic.main.list_of_films_fragment.source_selector_men
 
 class ListFragment : Fragment() {
 
-    private val filmAdapter = FilmAdapter()
+    private val filmAdapter = FilmAdapter{
+        findNavController().navigate(R.id.FilmFragment, bundleOf("Film" to it))
+    }
     private lateinit var listPresenter: ListPresenter
     private var source = RSS
     override fun onCreateView(

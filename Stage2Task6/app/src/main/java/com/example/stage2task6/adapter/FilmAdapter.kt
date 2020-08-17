@@ -6,12 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stage2task6.R
 import com.example.stage2task6.data.local.model.Film
 
-class FilmAdapter : RecyclerView.Adapter<FilmViewHolder>() {
+class FilmAdapter(val onFilmClickListener: (film: Film) -> Unit) :
+    RecyclerView.Adapter<FilmViewHolder>() {
     private var items = listOf<Film>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.film_info_item, null)
-        return FilmViewHolder(view)
+        val filmViewHolder = FilmViewHolder(view)
+        filmViewHolder.view.setOnClickListener {
+            onFilmClickListener(items[filmViewHolder.adapterPosition])
+        }
+
+        return filmViewHolder
     }
 
     override fun getItemCount(): Int {

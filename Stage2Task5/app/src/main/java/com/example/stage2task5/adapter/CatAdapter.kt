@@ -11,14 +11,14 @@ import coil.transform.CircleCropTransformation
 import com.example.stage2task5.R
 import com.example.stage2task5.data.datasource.api.local.model.Cat
 
-class CatAdapter(val onImageClickListner: (cat: Cat) -> Unit) :
+class CatAdapter(val onImageClickListener: (cat: Cat) -> Unit) :
     ListAdapter<Cat, CatViewHolder>(CatDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_item, parent, false)
         val catViewHolder = CatViewHolder(view)
         catViewHolder.imageView.setOnClickListener {
-            onImageClickListner(getItem(catViewHolder.adapterPosition))
+            onImageClickListener(getItem(catViewHolder.adapterPosition))
         }
 
         return catViewHolder
