@@ -6,6 +6,7 @@ import retrofit2.http.GET
 
 interface NumbersApiService {
 
+//    @Headers("Content-Type: application/json")
     @GET("/random/trivia?json")
     suspend fun getRandomNumberInfo(): Response<NumberResponse>
 

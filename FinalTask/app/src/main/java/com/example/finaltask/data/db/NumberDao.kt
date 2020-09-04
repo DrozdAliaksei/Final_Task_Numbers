@@ -9,6 +9,8 @@ class NumberDao(val dao: DatabaseHelper) {
 
     fun queryForAll() = helper.queryForAll()
 
+    fun typedList(type: String) = helper.queryBuilder().where().eq("type", type).query()
+
     fun removeAll() {
         for (table in queryForAll()) {
             helper.delete(table)

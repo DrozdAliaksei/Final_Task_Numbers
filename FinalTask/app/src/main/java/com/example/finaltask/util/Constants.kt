@@ -1,6 +1,6 @@
 package com.example.finaltask.util
 
-object Constants{
+object Constants {
     const val PREFS_NAME = "theme_prefs"
     const val KEY_THEME = "prefs.theme"
     const val THEME_UNDEFINED = -1

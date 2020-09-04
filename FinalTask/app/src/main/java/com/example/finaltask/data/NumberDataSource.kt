@@ -1,20 +1,22 @@
 package com.example.finaltask.data
 
+import android.util.Log
 import com.example.finaltask.data.model.NumberResponse
 import com.example.finaltask.data.retrofit.NumbersApiService
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class NumberDataSource() {
+class NumberDataSource {
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("http://numbersapi.com/")
+        .baseUrl("http://numbersapi.com")
         .build()
 
     private val randomNumberService = retrofit.create(NumbersApiService::class.java)
 
     suspend fun getRandomNumber(): Response<NumberResponse> {
+        Log.i("REPO", "Rest: ${randomNumberService.getRandomNumberInfo()}")
         return randomNumberService.getRandomNumberInfo()
     }
 

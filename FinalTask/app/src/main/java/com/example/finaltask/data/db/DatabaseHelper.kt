@@ -20,6 +20,4 @@ class DatabaseHelper : OrmLiteSqliteOpenHelper(App.instance, "numbers.db", null,
         TableUtils.dropTable<NumberTable, Any>(connectionSource, NumberTable::class.java, true)
         onCreate(database, connectionSource)
     }
-
 }
-

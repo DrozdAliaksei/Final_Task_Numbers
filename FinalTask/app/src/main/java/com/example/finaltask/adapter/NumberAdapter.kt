@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.finaltask.R
 import com.example.finaltask.data.local.model.Number
 
-class NumberAdapter: RecyclerView.Adapter<NumberViewHolder>() {
+class NumberAdapter : RecyclerView.Adapter<NumberViewHolder>() {
     private var items = listOf<Number>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.history_list_item, null)

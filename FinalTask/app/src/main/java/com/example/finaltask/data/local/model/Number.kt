@@ -1,17 +1,30 @@
 package com.example.finaltask.data.local.model
 
+import com.example.finaltask.data.db.NumberTable
+
 data class Number(
-    val text: String? = "",
-    val found: Boolean? = false,
-    val number: Int? = 0,
-    val type: String? = "",
+    val text: String = "",
+    val found: Boolean = false,
+    val number: Int = 0,
+    val type: String = "",
     val date: String? = "",
     val year: String? = ""
 ) {
     fun name(): String {
-        return if (!year.isNullOrBlank() && !date.isNullOrBlank()) "$number in $date of $year"
+        return if (!year.isNullOrBlank() && !date.isNullOrBlank()) "$number ,$date ,$year"
         else if (!year.isNullOrBlank()) "$number in $year"
-        else if (!date.isNullOrBlank()) "$number at $date"
+        else if (!date.isNullOrBlank()) "$number, $date"
         else "$number"
+    }
+
+    fun toNumberTable():NumberTable{
+        return NumberTable(
+            text = this.text,
+            found = this.found,
+            number = this.number,
+            type = this.type,
+            date = this.date,
+            year = this.year
+        )
     }
 }

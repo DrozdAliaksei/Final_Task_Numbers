@@ -3,4 +3,6 @@
     <color name="colorPrimary">#195DAF</color>
     <color name="colorPrimaryDark">#A62CFD</color>
     <color name="colorAccent">#14675F</color>
+    <color name="nonSelected">#FF0000</color>
+    <color name="selected">#fff</color>
 </resources>

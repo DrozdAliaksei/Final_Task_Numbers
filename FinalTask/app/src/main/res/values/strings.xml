@@ -11,4 +11,5 @@
     <string name="history_fragment_label">History Fragment</string>
     <string name="menu_light_theme">Light theme</string>
     <string name="menu_dark_theme">Dark theme</string>
+    <string name="delete_all">delete all</string>
 </resources>

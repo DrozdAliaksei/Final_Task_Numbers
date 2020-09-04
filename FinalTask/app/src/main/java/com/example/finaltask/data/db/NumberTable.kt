@@ -1,5 +1,6 @@
 package com.example.finaltask.data.db
 
+import com.example.finaltask.data.local.model.Number
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 
@@ -9,7 +10,7 @@ data class NumberTable(
     @DatabaseField(generatedId = true)
     val id: Int? = null,
     @DatabaseField
-    val text: String ="",
+    val text: String = "",
     @DatabaseField
     val found: Boolean = false,
     @DatabaseField
@@ -17,7 +18,18 @@ data class NumberTable(
     @DatabaseField
     val type: String = "",
     @DatabaseField
-    val date: String = "",
+    val date: String? = "",
     @DatabaseField
-    val year: String =""
-)
+    val year: String? = ""
+) {
+    fun toNumber(): Number {
+        return Number(
+            text = this.text,
+            found = this.found,
+            number = this.number,
+            type = this.type,
+            date = this.date,
+            year = this.year
+        )
+    }
+}

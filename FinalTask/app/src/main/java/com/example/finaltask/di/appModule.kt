@@ -15,7 +15,7 @@ val appModule = module {
     single { DatabaseHelper() }
     single { NumberDataSource() }
     single { NumberDao(get()) }
-    single { MyRepositoryImpl(get(), get()) }
+    single<MyRepository> { MyRepositoryImpl(get(), get()) }
 
     viewModel { DetailViewModel(get()) }
     viewModel { HistoryViewModel(get()) }
