@@ -5,7 +5,7 @@ import com.example.finaltask.data.db.NumberTable
 data class Number(
     val text: String = "",
     val found: Boolean = false,
-    val number: Int = 0,
+    val number: Double? = null,
     val type: String = "",
     val date: String? = "",
     val year: String? = ""
@@ -14,10 +14,11 @@ data class Number(
         return if (!year.isNullOrBlank() && !date.isNullOrBlank()) "$number ,$date ,$year"
         else if (!year.isNullOrBlank()) "$number in $year"
         else if (!date.isNullOrBlank()) "$number, $date"
+        else if (number == null) ""
         else "$number"
     }
 
-    fun toNumberTable():NumberTable{
+    fun toNumberTable(): NumberTable {
         return NumberTable(
             text = this.text,
             found = this.found,

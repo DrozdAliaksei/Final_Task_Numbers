@@ -10,4 +10,6 @@ object Constants {
     const val RANDOM_MATH = "math"
     const val RANDOM_DATE = "date"
     const val RANDOM_YEAR = "year"
+    const val DETAIL_TEXT = "last_number_text"
+    const val DETAIL_NUMBER = "last_number"
 }

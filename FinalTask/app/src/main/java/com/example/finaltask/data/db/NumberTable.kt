@@ -14,7 +14,7 @@ data class NumberTable(
     @DatabaseField
     val found: Boolean = false,
     @DatabaseField
-    val number: Int = 0,
+    val number: Double? = 0.0,
     @DatabaseField
     val type: String = "",
     @DatabaseField

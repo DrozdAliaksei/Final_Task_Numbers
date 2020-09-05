@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finaltask.MainActivity
 import com.example.finaltask.R
 import com.example.finaltask.adapter.NumberAdapter
+import com.example.finaltask.data.local.model.Number
 import com.example.finaltask.vm.HistoryViewModel
 import kotlinx.android.synthetic.main.history_fragment.history_bnm
 import kotlinx.android.synthetic.main.history_fragment.history_list
@@ -39,7 +40,11 @@ class HistoryFragment : Fragment() {
 
         historyViewModel.list.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
-            numberAdapter.setList(it)
+            if (it.isEmpty()) {
+                numberAdapter.setList(listOf(Number(text = "History is empty")))
+            } else {
+                numberAdapter.setList(it)
+            }
         })
 
         history_bnm.setOnNavigationItemSelectedListener {
