@@ -25,7 +25,7 @@ class FilmModel {
                         }!!
                     Result.ResultSuccess(items.reversed())
                 } else {
-                    Result.ResultFail
+                    Result.ResultFailed("Some problems happen during downloading")
                 }
             }
             REPO -> {
@@ -48,10 +48,10 @@ class FilmModel {
                         }!!
                     Result.ResultSuccess(items)
                 } else
-                    Result.ResultFail
+                    Result.ResultFailed("Some problems happen during downloading")
             }
 
-            else -> Result.ResultFail
+            else -> Result.ResultFailed("Some problems happen during downloading")
         }
     }
 }

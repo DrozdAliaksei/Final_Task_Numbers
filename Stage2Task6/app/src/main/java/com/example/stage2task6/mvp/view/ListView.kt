@@ -1,4 +1,4 @@
-package com.example.stage2task6.mvp.interfaces
+package com.example.stage2task6.mvp.view
 
 import com.example.stage2task6.data.local.model.Film
 
