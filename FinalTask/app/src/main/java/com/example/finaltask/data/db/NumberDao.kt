@@ -1,8 +1,8 @@
 package com.example.finaltask.data.db
 
-class NumberDao(val dao: DatabaseHelper) {
+class NumberDao(private val dao: DatabaseHelper) {
 
-    val helper = dao.getDao(NumberTable::class.java)
+    private val helper = dao.getDao(NumberTable::class.java)
 
     fun add(number: NumberTable) =
         helper.createOrUpdate(number)

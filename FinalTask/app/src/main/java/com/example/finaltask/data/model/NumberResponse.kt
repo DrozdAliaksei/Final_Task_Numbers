@@ -12,8 +12,8 @@ data class NumberResponse(
     @Json(name = "type") val type: String,
     @Json(name = "date") val date: String?,
     @Json(name = "year") val year: String?
-){
-    fun toNumber(): Number{
+) {
+    fun toNumber(): Number {
         return Number(
             text = this.text,
             found = this.found,
