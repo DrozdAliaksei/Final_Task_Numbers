@@ -13,15 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stage2task6.R
 import com.example.stage2task6.adapter.FilmAdapter
 import com.example.stage2task6.data.local.model.Film
-import com.example.stage2task6.mvp.view.ListView
 import com.example.stage2task6.mvp.model.FilmModel
 import com.example.stage2task6.mvp.presenters.ListPresenter
+import com.example.stage2task6.mvp.view.ListView
+import com.example.stage2task6.util.REPO
+import com.example.stage2task6.util.RSS
+import com.example.stage2task6.util.TAG
 import kotlinx.android.synthetic.main.list_of_films_fragment.recyclerView
 import kotlinx.android.synthetic.main.list_of_films_fragment.source_selector_menu
 
 class ListFragment : Fragment() {
 
-    private val filmAdapter = FilmAdapter{
+    private val filmAdapter = FilmAdapter {
         findNavController().navigate(R.id.FilmFragment, bundleOf("Film" to it))
     }
     private lateinit var listPresenter: ListPresenter
@@ -76,11 +79,5 @@ class ListFragment : Fragment() {
     override fun onDestroyView() {
         listPresenter.onDestroy()
         super.onDestroyView()
-    }
-
-    companion object {
-        const val RSS = "Ted rss"
-        const val REPO = "Repository"
-        const val TAG: String = "ListFragment"
     }
 }
