@@ -1,6 +1,5 @@
 package com.example.finaltask.data
 
-import android.util.Log
 import com.example.finaltask.data.model.NumberResponse
 import com.example.finaltask.data.retrofit.NumbersApiService
 import retrofit2.Response
@@ -16,7 +15,6 @@ class NumberDataSource {
     private val randomNumberService = retrofit.create(NumbersApiService::class.java)
 
     suspend fun getRandomNumber(): Response<NumberResponse> {
-        Log.i("REPO", "Rest: ${randomNumberService.getRandomNumberInfo()}")
         return randomNumberService.getRandomNumberInfo()
     }
 
